@@ -1,0 +1,9 @@
+{% if users %}
+
+{% for user in users %}
+	<li  class = "list-group-item list-group-item-info li_class "> <a href="{% url 'other_profile' visited_user=user.username	 %}"> {{user.username}} </a>
+{% endfor %}
+
+{% else %}
+	<li class = "list-group-item list-group-item-info li_class" > No users found!!</li>
+{% endif %}	

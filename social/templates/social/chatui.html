@@ -1,0 +1,273 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<title>Chat Room </title>
+<meta charset="UTF-8">
+
+<head>
+
+  
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'social/img/favicon.ico' %}"/>  
+<link rel="stylesheet" href="{% static 'social/css/home.css' %}">
+<link rel="stylesheet" href="{% static 'social/css/all.css' %}">
+<link rel="stylesheet" href="{% static 'users/profile.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.7/css/bootstrap.min.css">
+
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
+
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js" ></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> 
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+</head>
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+
+a:hover{
+  text-decoration: none;
+}
+
+/* li.sent{
+  background: #435f7a;
+  color: #f5f5f5;
+  display:inline-block;
+  clear: both;
+  padding: 20px;
+  border-radius: 30px;
+  margin-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+} */
+
+li{
+  list-style-type: none;
+}
+
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Darker chat container */
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+/* Clear floats */
+.container::after {
+  content: "";
+  clear: both;
+
+  display: table;
+}
+/* Style images */
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+/* Style the right image */
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+/* Style time text */
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+  float: left;
+  color: #999;
+}
+
+
+</style>
+
+<div class="text-right mb-3"> 
+  <a href="{% url 'social-home' %}" class="btn btn-primary"> Home </a>
+  <a href="{% url 'logout' %}" class="btn btn-primary"> Logout </a>
+</div>
+
+<body class="w3-purple">
+
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="w3-display-container">
+          
+          <img src="{{ receiver_user.profile.image.url }}" class="profile_img"  alt="Avatar">
+          <br>
+          <br>
+          <br>
+          <h2 style="padding-left: 100px;"> {{receiver_user.username}} </h2>
+
+          <div class="w3-display-bottomleft w3-container w3-text-black">
+         </div>
+        </div>
+
+
+      <br>
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+    <br><br>
+
+        <div class="w3-container w3-card w3-white w3-margin-bottom profile_data">
+        <h2 class="w3-text-grey w3-padding-16">Your Messages with {{receiver_user.username}}  </h2>
+
+          <!-- <textarea disabled class="w3-border w3-input w3-white" rows="12" style = "resize:none;" id="chat-log" >  </textarea> -->
+
+          <div id = "header" > <ul class="tabs"  style="height:300px; overflow: auto" id = "chat-log" >  </ul> </div>
+
+          <br> <br>
+
+          <input autocomplete="off" class = " w3-input w3-border w3-threequarter " id="chat-message-input" type="text"/>
+
+          &nbsp &nbsp &nbsp
+          <button class= "w3-border w3-btn w3-blue" id="chat-message-submit" ><i class="fa fa-paper-plane fa-lg"></i></button>
+
+          <br> <br>
+
+        </div>
+
+      </div>
+
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+  <!-- End Page Container -->
+</div>
+
+
+<br><br>
+
+ <script>
+      
+      var roomName = {{room_name}};
+
+      var sender = {{sender}};
+
+      var loc = window.location;
+
+      var websocket_type;
+
+      if (loc.protocol === "https:"){
+          websocket_type = "wss://";
+      }
+
+      else{
+          websocket_type = "ws://";
+      }
+
+      var chatSocket = new ReconnectingWebSocket(
+          websocket_type + window.location.host +
+          '/ws/' +  roomName + '/');
+
+      chatSocket.onmessage = function(e) {
+        
+          var data = JSON.parse(e.data);
+          var message = data['message'];
+          var sender = data['sender'];
+          var date = data['date'];
+
+          var x;
+
+          var name_of_sender = "{{request.user.username}}";
+
+          if(sender != name_of_sender ){
+             x = '<div class="container darker"><img src="{{receiver_user.profile.image.url}}" alt="Avatar" style="width:100%;"><p>' + message + '</p><span class="time-right">' + date + '</span></div>';
+          }
+          
+          else{
+             x = '<div class="container darker"><img src="{{request.user.profile.image.url}}" alt="Avatar" class="right" style="width:100%;">' + message + '</p><span class="time-left">' + date + '</span></div>';
+          }
+
+          $("#header ul").append('<li class = "sent">' + x + '\n' + '</li>');
+          
+          $('#header ul').animate({scrollTop: $('#header ul').prop("scrollHeight")}, 500);
+      
+      };
+
+      chatSocket.onclose = function(e) {
+          console.error('Chat socket clos<ed unexpectedly');
+      };
+
+      document.querySelector('#chat-message-input').focus();
+      document.querySelector('#chat-message-input').onkeyup = function(e) {
+          if (e.keyCode === 13) {  // enter, return
+              document.querySelector('#chat-message-submit').click();
+          }
+      };
+
+      document.querySelector('#chat-message-submit').onclick = function(e) {
+          var messageInputDom = document.querySelector('#chat-message-input');
+          var message = messageInputDom.value;
+
+          if(message != ''){
+
+          chatSocket.send(JSON.stringify({
+              'message': message,
+              'sender' : sender,
+          }));
+
+          }
+
+          messageInputDom.value = '';
+      };
+  </script>
+
+
+</body>
+</html>

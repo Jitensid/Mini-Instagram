@@ -1,0 +1,205 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html>
+<title>Your Profile</title>
+<meta charset="UTF-8">
+
+<head>
+<link rel="stylesheet" href="{% static 'social/css/home.css' %}">
+<link rel="stylesheet" href="{% static 'social/css/all.css' %}">
+<link rel="stylesheet" href="{% static 'users/profile.css' %}">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'social/img/favicon.ico' %}"/>  
+
+<script src="{% static 'social/javascript/home.js' %}"></script>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> 
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+</style>
+
+<style>
+a:hover{
+  text-decoration: none;
+}
+h4{
+  text-align: center;
+}
+
+body.modal-open {
+    overflow: visible;
+}
+
+</style>
+
+<div class="text-right mb-3"> 
+  <a href="{% url 'social-home' %}" class="btn btn-primary"> Home </a>
+  <a href="{% url 'logout' %}" class="btn btn-primary"> Logout </a>
+</div>
+
+<body class="w3-purple">
+
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+        
+        <div class="w3-display-container">
+          
+          <img src="{{ user.profile.image.url }}" class="profile_img" alt="Avatar">
+
+          <div class="w3-display-bottomleft w3-container w3-text-black">
+<!--             <h2> {{user.username}} </h2>
+ -->          </div>
+        </div>
+
+
+      <br>
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+    
+      <div class="w3-container w3-card w3-white w3-margin-bottom profile_data">
+        <h2 class="w3-text-grey w3-padding-16"> {{user.username}} &nbsp &nbsp <a href ="{% url 'edit_profile' %}" class="btn btn-primary"> Edit Profile </a>  &nbsp <a href ="{% url 'create_a_post' %}" class="btn btn-primary"> Post  </a></h2>
+
+
+        <div class="w3-container">
+          <br>
+          <h5 class="w3-opacity"><b>{{user.username}}'s  Bio   </b></h5>
+          <p> {{user.profile.bio_for_profile}} </p>
+          <hr>
+          <p> Followers <b>{{follower_users}}</b> </p>
+          <p> Following <b>{{following_users }}</b> </p>
+          <p> Posts  <b> {{no_of_posts}} </b></p>
+        </div>
+
+      </div>
+
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+  <!-- End Page Container -->
+</div>
+
+<br>
+<br>
+
+{% csrf_token %}
+
+{% for image in posted_images %}
+
+<div style="padding-left: 150px">
+
+<div class="card">
+  
+  <div class="container upcontainer">
+  <br>
+
+  <p style="color: black"> <b> Posted By : </b> <img src = "{{request.user.profile.image.url}}" style="width: 7%; border-radius: 300px;"> <a href="{% url 'profile' %}" > {{ image.author }}  </a> <b> on  {{ image.date_posted|date:"F d, Y" }} </b> </p>
+  
+  </div>
+
+  <div>
+  
+  <img class="image_border disable-dbl-tap-zoom" src="{{ image.posted_image.url }}"  alt="Avatar" height="500" width="500" style="width:100%" ondblclick="like_an_image({{image.id}} ,'{{csrf_token}}')"> 
+
+  <div id="fonticon" class="container downcontainer">
+  
+  <br>
+
+  <i id="heart_{{image.id}}"> </i>
+
+  <i id = "not_liked_icon_{{image.id}}" onclick = "like_an_image({{image.id}}, '{{csrf_token}}')" class = "far fa-heart fa-2x icon_before_liking">  </i> 
+
+  <i id = "liked_icon_{{image.id}}"  onclick = "unlike_an_image({{image.id}}, '{{csrf_token}}')" class = "fas fa-heart fa-2x icon_after_liking">  </i> 
+ 
+    {% if user in image.liked_by.all %}
+
+      <script>
+        document.getElementById("not_liked_icon_{{image.id}}").style.display = "none";
+      </script>
+
+    {%else%}
+
+      <script>
+          document.getElementById("liked_icon_{{image.id}}").style.display = "none";
+      </script>
+      
+    {% endif %}
+  
+  </div>
+
+  </div>
+
+  <br>
+
+  <a href= "#" data-toggle="modal" data-target="#myModal_{{image.id}}" style="color: black ; font-size: 13px; " > <b> &nbsp Liked by </b> <b  id="like_counter_{{image.id}}"> {{ image.no_of_likes }} </b> <b> people </b> </a>
+
+  <div class="container">
+  <p style="color: black"> <b> {{image.author}} : &nbsp &nbsp </b> {{ image.caption }} </p>  
+  </div>
+
+</div>
+</div>
+
+
+<br>
+<br>
+
+  <div class="modal fade" id="myModal_{{image.id}}">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" style=" color: black;padding-left:200px; ">Likes</h4>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <ul id = "like_list_{{image.id}}" style="list-style-type:none; color: black">
+          {% for liked_users in image.liked_by.all %}
+          <li > <img src = "{{liked_users.profile.image.url}}" style="width: 10%; border-style: solid; border-radius: 100px; border-color: black;"> <b> &nbsp {{liked_users}} </b> </li>
+          <br>
+          {% endfor %}
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+{% endfor %}
+
+</body>
+</html>

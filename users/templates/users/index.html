@@ -1,0 +1,63 @@
+{% load static %}
+{% load crispy_forms_tags %}-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V4</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'users/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'users/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url("{% static 'bg-01.jpg' %}");">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				
+				<form class="login100-form validate-form">
+					<span class="login100-form-title p-b-49">
+						Login
+					</span>
+
+	{% csrf_token %}					
+					{{ form|crispy  }}
+				
+				</form>
+				
+		<div class="text-right p-t-8 p-b-31">
+						<a href="#">
+							Forgot password?
+						</a>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Login
+							</button>
+						</div>
+					</div>
+
+					<div class="txt1 text-center p-t-54 p-b-20">
+						<span>
+					Don't have an Account? <a  href="{% url 'register' %}"> Register Now!</a>						</span>
+					</div>
+
+
+
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+</body>
+</html>

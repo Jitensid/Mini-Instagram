@@ -1,0 +1,71 @@
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+<!--
+Author: Colorlib
+Author URL: https://colorlib.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title> Login Form </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Custom Theme files -->
+<!-- <link href="login_style.css" rel="stylesheet" type="text/css" media="all" />
+ --><!-- //Custom Theme files -->
+<!-- web font -->
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'social/img/favicon.ico' %}"/>  
+
+ <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<link href = "{% static 'users/login_style.css' %}" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+<!-- //web font -->
+
+<script>
+  $(function() {
+    $("#id_b_day").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2012",
+      // You can put more options here.
+
+    });
+  });
+  </script>
+
+</head>
+<body>
+	<!-- main -->
+	<div class="main-w3layouts wrapper">
+		<h1> Login </h1>
+		<div class="main-agileinfo">
+			<div class="agileits-top">
+				<form action="#" method="post" style="color:white">
+					{% csrf_token %}					
+					{{ form|crispy  }}
+					<div class="wthree-text">
+						<div class="clear"> </div>
+					</div>
+					<input type="submit" value="LOGIN">
+				</form>
+				<p>Don't have an Account? <a href="{% url 'register' %}"> Register Today !</a></p>
+			</div>
+		</div>
+		<!-- copyright -->
+		<div class="colorlibcopy-agile">
+			<p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
+		</div>
+	
+	<!-- //main -->
+</body>
+
+
+
+</html>

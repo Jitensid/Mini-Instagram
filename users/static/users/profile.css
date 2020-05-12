@@ -1,0 +1,14 @@
+.profile_img{
+	border-style: solid;
+	border-color: black;
+	border-radius: 300px;
+	border-width: 3px;
+	width: 300px;
+	height: 300px;	
+}
+
+.profile_data{
+	border-style: solid;
+	border-color: black;
+	border-width: 3px;
+}

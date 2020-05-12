@@ -1,0 +1,94 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{{ b_form.media }}
+
+<html>
+<head>
+
+    <title>Registration Form</title>
+
+    <script type="text/javascript" src="{% static 'social/static/social/jquery-ui-1.12.1.custom/jquery-ui.js' %}"></script>
+
+    <script type="text/javascript" src = "{% static 'social/static/social/jquery-ui-1.12.1.custom/jquery-ui.css' %}" ></script>
+    
+    <script type="text/javascript" src = "{% static 'social/static/social/jquery-ui-1.12.1.custom/jquery-ui.min.css' %}" ></script>
+
+    <script type="text/javascript" src = "{% static 'social/static/social/jquery-ui-1.12.1.custom/jquery-ui.min.js' %}" ></script>
+
+    <link rel="stylesheet" type="text/css" href="{%static 'social/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'social/bootstrap-4.3.1-dist/css/bootstrap-responsive.min.css' %}"/> 
+    <script type="text/javascript" src="{% static 'social/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'social/jquery-3.4.1.min.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer> </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer> </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script> 
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js" defer></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'social/img/favicon.ico' %}"/>  
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" defer></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+<!-- //web font -->
+
+</head>
+
+<body style="background-color: purple; color: white"> 
+
+<div class="text-center ">
+
+<h1> Register Today !!! </h1>
+
+</div>
+
+<div class="w3-display-container w3-display-middle">
+<form action = "#" method="POST" class="form-group ">
+{% csrf_token %}	
+{{ form|crispy}}
+{{b_form|crispy}}
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="g-recaptcha" data-sitekey="6Ldya-EUAAAAAB3e1bMuUuIxeboksW8mHkvacFM6"></div>
+
+<input class = "w3-btn w3-border w3-block" type="submit" value="REGISTER">
+</form>
+
+	<p>Already Having an Account? <a href="{% url 'login' %}"> Login Now!</a></p>
+
+</div>
+  
+
+</body>
+
+<script type="text/javascript">
+    $(function () {
+        $('#id_birthdate').datepicker();
+    });
+});
+
+</script>
+
+
+</html>

@@ -1,0 +1,42 @@
+
+.card {
+  /* Add shadows to create the "card" effect */
+  padding-left: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 50%;
+  padding-right: 10px;
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 4px 4px;
+}
+
+.upcontainer{
+	border-bottom-style: solid;
+	border-bottom-color: silver;
+	border-bottom-width: 3px;
+}
+
+.downcontainer{
+	border-top-style: solid;
+	border-top-color: silver;
+	border-top-width: 3px;
+
+}
+
+.image_border{
+	border-left-style: solid;
+	border-left-color: silver;
+	border-left-width: 3px;
+
+	border-right-style: solid;
+	border-right-color: silver;
+	border-right-width: 3px;
+
+}
+
+.para_profile{
+	color: black;
+}

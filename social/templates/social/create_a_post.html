@@ -1,0 +1,58 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'social/img/favicon.ico' %}"/>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.7/css/bootstrap.min.css">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+  
+.textarea{
+  resize: none;
+}  
+  
+</style>
+
+</head>
+
+<div class="text-right mb-3 h-10">
+  <a href="{% url 'profile' %}" class="btn btn-primary"> Profile </a> 
+  <a href="{% url 'logout' %}" class="btn btn-primary"> Logout </a>
+</div>
+
+
+
+<body style="background-color: purple; color: white;" >
+
+<div class="container">
+    <h1>Post Details</h1>
+  	<hr>
+	<div class="row">
+      <!-- left column -->
+
+      
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        
+        <form action = "#" method = "POST" enctype="multipart/form-data" class="form-horizontal form-control-file" role="form">
+          {% csrf_token %}
+          
+          {{ post_create_form|crispy}}
+
+          <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="Submit">
+              <span></span>
+              <input type="reset" class="btn btn-primary" value="Cancel">
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+<hr>
+
+</body>

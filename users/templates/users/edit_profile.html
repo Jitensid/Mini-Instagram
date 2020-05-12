@@ -1,0 +1,53 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title> </title>
+
+
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script src="{% static 'users/emojionearea.js' %}"></script>
+
+<script src="{% static 'users/emojionearea.min.js' %}"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'users/emojionearea.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'users/emojionearea.min.css' %}">
+ 
+
+
+</head>
+
+<body>
+
+	<h2> Update Profile Form </h2>
+
+					<div>
+					<form action="#" method="POST" enctype="multipart/form-data"> <!-- to handle image data--> 
+					{% csrf_token %}
+					
+					{{ user_form|crispy  }}
+					{{ profile_update_form|crispy }}
+
+					<input type="submit" class ="btn btn-primary" value="Update">
+				</form>
+
+					</div>
+
+				<div id ="container">
+				</div>
+
+<script>
+	
+$("#container").emojioneArea({
+  hideSource: false,
+});
+
+</script>
+
+</body>
+</html>

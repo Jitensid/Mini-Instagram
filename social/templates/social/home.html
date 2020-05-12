@@ -1,0 +1,175 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>List of Images</title>
+
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'social/img/favicon.ico' %}"/>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.7/css/bootstrap.min.css">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<link rel="stylesheet" href="{% static 'social/css/home.css' %}">
+<link rel="stylesheet" href="{% static 'social/css/all.css' %}">
+
+<script src="{% static 'social/javascript/home.js' %}"></script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> 
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+
+
+
+
+<div class="text-right mb-3 h-10">
+	{% if user.is_authenticated %}
+	<a href="{% url 'profile' %}" class="btn btn-primary"> Profile </a>	
+	<a href="{% url 'logout' %}" class="btn btn-primary"> Logout </a>
+	{% else %}
+    <a href="{% url 'register' %}" class="btn btn-primary"> Register </a>
+	<a href="{% url 'login' %}" class="btn btn-primary"> Login </a>	
+    {% endif %}
+</div>
+
+	<div>
+
+    <div class="container h-10" >
+      <div class="d-flex justify-content-center h-100">
+        <div class="searchbar">
+          <input class="search_input" type="text" id="search" onkeyup="fetch_results()" placeholder="Search">
+          <a class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+    </div>
+		<ul id ="search_results" style="align-items: center" class="list-unstyled list-group " ></ul>
+	</div>
+
+<style>
+
+  a:hover{
+  text-decoration: none;
+}
+
+</style>
+
+</head>
+
+<body style="background-color: purple">
+
+{% csrf_token %}
+
+
+{% for image in images %}
+
+<div style="padding-left: 150px;">
+
+ <div class="card">
+  
+  <div class="container upcontainer">
+  <br>
+
+  {% if image.author == request.user %}
+
+  <p> <b> Posted By : </b> <a href="{% url 'profile' %}" > {{ image.author }}  </a> <b> on  {{ image.date_posted|date:"F d, Y" }} </b> </p>
+
+  {% else %}
+
+  <p> <b> Posted By : </b> <a href="{% url 'other_profile' visited_user=image.author%}" > {{ image.author }}  </a> on <b> {{ image.date_posted|date:"F d, Y" }} </b> </p>
+
+  {% endif %}
+  </div>
+
+  <div>
+  
+  <img class="image_border disable-dbl-tap-zoom" src="{{ image.posted_image.url }}"  alt="Avatar" height="500" width="500" style="width:100%" ondblclick="like_an_image({{image.id}}, '{{csrf_token}}')"> 
+
+  <div id="fonticon" class="container downcontainer">
+  
+  <br>
+
+  	<i id="heart_{{image.id}}"> </i>
+
+	<i id = "not_liked_icon_{{image.id}}" onclick = "like_an_image({{image.id}}, '{{csrf_token}}')" class = "far fa-heart fa-2x icon_before_liking">  </i> 
+
+	<i id = "liked_icon_{{image.id}}"  onclick = "unlike_an_image({{image.id}}, '{{csrf_token}}')" class = "fas fa-heart fa-2x icon_after_liking">  </i> 
+ 
+   	{% if user in image.liked_by.all %}
+
+   		<script>
+   			document.getElementById("not_liked_icon_{{image.id}}").style.display = "none";
+   		</script>
+
+  	{%else%}
+
+   		<script>
+    			document.getElementById("liked_icon_{{image.id}}").style.display = "none";
+   		</script>
+  		
+  	{% endif %}
+  
+  </div>
+
+  </div>
+
+	<br>
+<a href= "#" data-toggle="modal" data-target="#myModal_{{image.id}}" style="color: black ; font-size: 13px; " > <b> &nbsp Liked by </b> <b  id="like_counter_{{image.id}}"> {{ image.no_of_likes }} </b> <b> people </b> </a>
+
+
+  <div class="container">
+  <p> <b> {{image.author}} : </b> &nbsp {{ image.caption }} </p>  
+  </div>
+
+</div>
+</div>
+
+<br>
+<br>
+
+  <div class="modal fade" id="myModal_{{image.id}}">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" style=" color: black;padding-left:200px; ">Likes</h4>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <ul id = "like_list_{{image.id}}" style="list-style-type:none; color: black">
+          {% for liked_users in image.liked_by.all %}
+          <li > <img src = "{{liked_users.profile.image.url}}" style="width: 10%; border-style: solid; border-radius: 100px; border-color: black;"> <b> &nbsp {{liked_users}} </b> </li>
+          <br>
+          {% endfor %}
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+{% endfor %}
+
+</body>
+</html>
