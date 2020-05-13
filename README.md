@@ -10,4 +10,4 @@ This is my web development project where I have used Django framework for the ba
 - channels_redis
 - django-crispy-forms
 - django-crontab
-- [ReconnectingWebSocket from joewalnes]
+- [ReconnectingWebSocket from joewalnes](https://github.com/joewalnes/reconnecting-websocket)
