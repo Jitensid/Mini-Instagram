@@ -4,10 +4,10 @@ This is my web development project where I have used Django framework for the ba
 
 #Major Packages Used in this Project : 
 
-1.django-channels
-2.channels_redis
-3.django-crispy-forms
-4.django-crontab
-5.ReconnectingWebSocket from joewalnes
+*1.django-channels
+*2.channels_redis
+*3.django-crispy-forms
+*4.django-crontab
+*5.ReconnectingWebSocket from joewalnes
 
 Feel free to issue any bug!!!
