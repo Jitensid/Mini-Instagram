@@ -4,8 +4,7 @@ This is my web development project where I have used Django framework for the ba
 
 # Feel free to issue any bug!!!
 
-
-#Major Packages Used in this Project : 
+# Major Packages Used in this Project : 
 
 - django-channels
 - channels_redis
